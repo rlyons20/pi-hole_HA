@@ -21,7 +21,7 @@ check=$(echo $probe)
 dhcpStartRange="192.168.x.x"
 dhcpStopRange="192.168.x.x"
 dhcpRouter="192.168.x.x"
-dhcpLeaseTime="86400"
+dhcpLeaseTime="24"
 dhcpDomain="domain.local"
 
 
