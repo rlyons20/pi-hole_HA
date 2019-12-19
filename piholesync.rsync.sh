@@ -28,7 +28,7 @@ Me
 #VARS
 FILES=(black.list blacklist.txt regex.list whitelist.txt lan.list) #list of files you want to sync
 PIHOLEDIR=/etc/pihole #working dir of pihole
-PIHOLE2=192.168.88.4 #IP of 2nd PiHole
+PIHOLE2=192.168.x.x #IP of 2nd PiHole
 HAUSER=root #user of second pihole
  
 #LOOP FOR FILE TRANSFER
