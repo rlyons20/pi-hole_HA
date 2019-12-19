@@ -1,0 +1,37 @@
+# Pre-Install STEPS to setup ROOT account
+1.  Log into primary pihole
+2.  "sudo nano /etc/passwd"
+3.  change first root line to "root::0:0:root:/root:/bin/bash" (remove the X)
+4.  Quit and save.
+5.  Run "sudo nano /etc/ssh/sshd_config"
+6.  Change "#PermitRootLogin prohibit-password" to "PermitRootLogin yes" (Remove # and add yes)
+7.  Quit and save.
+8.  run "sudo /etc/init.d/ssh restart"
+10. Run "sudo passwd root" and change the password - Remember IT!
+11. Repeat setps 1-10 on 2nd PIHOLE.
+
+# INSTALLATION STEPS ON PRIMARY PIHOLE
+1. Login to Primary Pi - run "sudo su" - this will elevate you to root.
+2. type "sudo nano ~/piholesync.rsync.sh" to create file
+3. cut and paste all information in this code snippet
+4. edit PIHOLE2 and HAUSER to match your SECONDARY pihole settings
+5. save and exit
+6. type "chmod +x ~/piholesync.rsync.sh" to make file executable
+ 
+# CREATE SSH file transfer permissions
+7. type "ssh-keygen" (hit enter 3 times to accept default values)
+8. type "ssh-copy-id root@192.168.2.252"  <- IP address of PiHole 2
+9. type "yes"
+10. type the password of your secondary pihole
+ 
+# ENABLE REMOTE COMMANDS USING SSH Keys ON Remote pihole
+11  type "cd ~/.ssh"
+12. type "eval `ssh-agent`" <- this step may not be needed, depending upon what is running on your primary pihole
+13. chmod 400 id_rsa.pub
+14. type "ssh-add id_rsa.pub"
+15. type "scp id_rsa.pub root@192.168.2.252:~/.ssh/"
+16. login to secondary pihole (PIHOLE2) by typing "ssh root@192.168.2.252"
+17. type "cd ~/.ssh"
+18. type "cat id_rsa.pub >> authorized_keys"
+19. type "exit"
+# see https://www.dotkam.com/2009/03/10/run-commands-remotely-via-ssh-with-no-password/ for further information on running ssh commands remotely without a password.
