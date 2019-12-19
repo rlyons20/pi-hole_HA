@@ -29,7 +29,7 @@ dhcpDomain="domain.local"
 if [ $count -eq 0 ]
 then
 	#do dhcp
-    echo "PiHole-PROD DHCP server is not responding!"
+    echo "pihole_status=0,Primary PiHole is DOWN. DHCP server is not responding!"
 	#check for lockfile
     if [ -e ${dir}dhcp.on ]
     then
@@ -58,7 +58,7 @@ then
 #check for FTLDNS error via web
 elif [ $count -eq 3 ] && [[ $check == *"offline"* ]]
 then
-        echo "Pihole-PROD host is up, but with FTLDNS error!"
+        echo "pihole_status=1,Primary PiHole is UP, but with FTLDNS error!"
 		#check for lockfile
         if [ -e ${dir}dhcp.on ]
         then
@@ -84,7 +84,7 @@ then
 else # PiHole-PROD is UP!  we got our ping responses and no FTL error
 	if [ -e ${dir}dhcp.on ]
 	then
-		echo "PiHole-PROD is UP. Shutdown Secondary DHCP"
+		echo "pihole_status=1,Primary PiHole is UP. Shutdown Secondary DHCP"
 		#restart pihole / disable DNS seerver
 		echo "Restarting DNS."
 		/usr/local/bin/pihole -a disabledhcp
@@ -95,7 +95,7 @@ else # PiHole-PROD is UP!  we got our ping responses and no FTL error
      	
 		exit 0
 	else #nothing to do, everything is fine
-		echo "PiHole-PROD is UP, nothing to do."
+		echo "pihole_status=1,Primary PiHole is UP. Nothing to do."
 	fi
 
 fi
